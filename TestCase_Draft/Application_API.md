@@ -1,4 +1,4 @@
-# Generate Temp Application ID API 测试用例（按Result Code分类）
+# Generate Temp Application ID API 测试用例
 ## 一、Result_code = 0（Success - 201 Created）
 | 用例ID | 测试用例描述 | 请求参数/前置条件 | 预期请求检查点 | 预期响应检查点 | 备注（边界/特殊点） |
 |--------|--------------|------------------|----------------|----------------|---------------------|
