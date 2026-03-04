@@ -1,218 +1,72 @@
-你是资深QA工程师，精通API测试。请基于以下Markdown格式的API Spec，设计全面的测试用例，覆盖：
-- 正常场景（所有必填参数齐全，符合业务规则）
-- 边界场景（参数为空、0、最大/最小值、特殊字符）
-- 异常场景（参数缺失、类型错误、鉴权失败、权限不足）
-- 业务规则场景（如重复创建用户、状态流转）
 
-输出要求：
-1. 每个接口单独列出测试用例
-2. 每个测试用例包含：用例ID、用例名称、前置条件、操作步骤、预期结果
-3. 用清晰的Markdown列表格式输出
+# Campaign List API - Comprehensive Test Cases
 
----
-以下是API Spec内容：
-[此处粘贴你复制的api-spec.md内容]
-# Retrieve Campaign List API 测试用例
-
-## 1. 正常场景
-
-- **用例ID:** TC01
-    - **用例名称:** 正常获取可用活动列表
-    - **前置条件:** 用户已完成账户关联，数据库中有可用活动，用户未全部申请
-    - **操作步骤:**
-        1. 使用有效 Bearer Token，发送 GET /campaign/list 请求，带正确的请求头
-    - **预期结果:**
-        - 返回 200 OK，result=0，campaigns 为活动数组，字段完整且符合 Spec
-
-- **用例ID:** TC02
-    - **用例名称:** 正常获取空活动列表
-    - **前置条件:** 用户已完成账户关联，所有活动都已申请或无可用活动
-    - **操作步骤:**
-        1. 使用有效 Bearer Token，发送 GET /campaign/list 请求
-    - **预期结果:**
-        - 返回 200 OK，result=0，campaigns=[]
-
-## 2. 边界场景
-
-- **用例ID:** TC03
-    - **用例名称:** Bearer Token 为空
-    - **前置条件:** 无
-    - **操作步骤:**
-        1. Authorization 头为 "Bearer "（无 token），发送请求
-    - **预期结果:**
-        - 返回 401，result=1，error_message="Authentication is required."
-
-- **用例ID:** TC04
-    - **用例名称:** Bearer Token 为特殊字符
-    - **前置条件:** 无
-    - **操作步骤:**
-        1. Authorization 头为 "Bearer !@#$%^&*()",发送请求
-    - **预期结果:**
-        - 返回 401，result=1，error_message="Authentication is required."
-
-- **用例ID:** TC05
-    - **用例名称:** Accept 头缺失
-    - **前置条件:** 用户已完成账户关联
-    - **操作步骤:**
-        1. 不带 Accept 头，发送请求
-    - **预期结果:**
-        - 返回 200 OK 或 400（视实现），如为 200，返回正常数据
-
-- **用例ID:** TC06
-    - **用例名称:** Content-Type 头缺失
-    - **前置条件:** 用户已完成账户关联
-    - **操作步骤:**
-        1. 不带 Content-Type 头，发送请求
-    - **预期结果:**
-        - 返回 200 OK 或 400（视实现），如为 200，返回正常数据
-
-- **用例ID:** TC07
-    - **用例名称:** 活动字段边界值（point_amount=0, 最大值）
-    - **前置条件:** master_campaign 配置 point_amount=0 和极大值的活动
-    - **操作步骤:**
-        1. 用户请求活动列表
-    - **预期结果:**
-        - 返回活动列表，point_amount 字段为 0 和最大值，类型正确
-
-- **用例ID:** TC08
-    - **用例名称:** 活动标题/资格条件/文档含特殊字符
-    - **前置条件:** master_campaign 配置含特殊字符的活动
-    - **操作步骤:**
-        1. 用户请求活动列表
-    - **预期结果:**
-        - 返回活动列表，title、brief_eligibility、required_documents 字段正确显示特殊字符
-
-- **用例ID:** TC09
-    - **用例名称:** point_grant_date 边界值
-    - **前置条件:** master_campaign 配置 point_grant_date 为 "1970-01-01" 和 "9999-12-31"
-    - **操作步骤:**
-        1. 用户请求活动列表
-    - **预期结果:**
-        - 返回活动列表，point_grant_date 字段为上述日期，格式正确
-
-## 3. 异常场景
-
-- **用例ID:** TC10
-    - **用例名称:** 未携带 Authorization 头
-    - **前置条件:** 无
-    - **操作步骤:**
-        1. 不带 Authorization 头，发送请求
-    - **预期结果:**
-        - 返回 401，result=1，error_message="Authentication is required."
-
-- **用例ID:** TC11
-    - **用例名称:** Bearer Token 非法/过期
-    - **前置条件:** 无
-    - **操作步骤:**
-        1. 使用无效或过期 token，发送请求
-    - **预期结果:**
-        - 返回 401，result=1，error_message="Authentication is required."
-
-- **用例ID:** TC12
-    - **用例名称:** 用户未完成账户关联
-    - **前置条件:** account_linkage 无该用户记录
-    - **操作步骤:**
-        1. 使用有效 token，发送请求
-    - **预期结果:**
-        - 返回 403，result=2，error_message="Please complete account linkage first."
-
-- **用例ID:** TC13
-    - **用例名称:** 服务端数据库异常
-    - **前置条件:** 数据库故障
-    - **操作步骤:**
-        1. 发送正常请求
-    - **预期结果:**
-        - 返回 500，result=3，error_message="A system error has occurred."
-
-- **用例ID:** TC14
-    - **用例名称:** 服务暂时不可用
-    - **前置条件:** 服务维护中
-    - **操作步骤:**
-        1. 发送正常请求
-    - **预期结果:**
-        - 返回 503，result=4，error_message="The service is temporarily unavailable."
-
-- **用例ID:** TC15
-    - **用例名称:** 网关超时
-    - **前置条件:** 后端超时
-    - **操作步骤:**
-        1. 发送正常请求
-    - **预期结果:**
-        - 返回 504，result=5，error_message="Request timed out."
-
-## 4. 业务规则场景
-
-- **用例ID:** TC16
-    - **用例名称:** 已申请所有活动
-    - **前置条件:** applications 表中该用户所有活动均为已申请状态
-    - **操作步骤:**
-        1. 发送正常请求
-    - **预期结果:**
-        - 返回 200 OK，result=0，campaigns=[]
-
-- **用例ID:** TC17
-    - **用例名称:** 新增活动后可见
-    - **前置条件:** master_campaign 新增新活动，用户未申请
-    - **操作步骤:**
-        1. 发送正常请求
-    - **预期结果:**
-        - 返回 200 OK，campaigns 包含新活动
-
-- **用例ID:** TC18
-    - **用例名称:** 活动状态流转后不可见
-    - **前置条件:** 用户对某活动已申请且状态为 "Under review"、"Final approved"、"Grant Done"
-    - **操作步骤:**
-        1. 发送正常请求
-    - **预期结果:**
-        - 返回 200 OK，campaigns 不包含该活动
-
-- **用例ID:** TC19
-    - **用例名称:** 多账户/客户号下活动隔离
-    - **前置条件:** 用户有多个 customer_number，部分已申请，部分未申请
-    - **操作步骤:**
-        1. 以不同 customer_number 登录，分别请求
-    - **预期结果:**
-        - 各自返回各自未申请的活动列表
-
----
-
-# Campaign List API - Test Cases (Table Format)
-
-## Normal Scenarios
+## HappyPath (正常场景)
 
 | Test Case ID | Test Name | Preconditions | Steps | Expected Result |
 |---|---|---|---|---|
-| TC01 | Retrieve available campaigns successfully | User completed account linkage; DB has available campaigns; user hasn't applied to all | 1. Send GET /campaign/list with valid Bearer token and correct headers | 200 OK, result=0, campaigns array with complete fields matching spec |
-| TC02 | Retrieve empty campaign list | User completed account linkage; all campaigns already applied or none available | 1. Send GET /campaign/list with valid Bearer token | 200 OK, result=0, campaigns=[] |
+| HP01 | Retrieve available campaigns successfully | User completed account linkage; DB has 2+ available campaigns; user hasn't applied to all | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept: application/json<br>4. Include Content-Type: application/json | HTTP 200<br>result=0<br>campaigns array with id, title, brief_eligibility (array), point_amount, required_documents (array), point_grant_date in YYYY-MM-DD format |
+| HP02 | Retrieve empty campaign list (no eligible campaigns) | User completed account linkage; all campaigns already applied with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list with valid Bearer token and headers | HTTP 200<br>result=0<br>campaigns=[] (empty array) |
+| HP03 | Retrieve campaigns with multiple documents | User completed account linkage; campaigns have multiple required_documents | 1. Send GET /campaign/list with valid token | HTTP 200<br>result=0<br>Each campaign's required_documents contains multiple objects with id and title |
 
-## Boundary Scenarios
-
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| TC03 | Bearer token empty | N/A | 1. Set Authorization header to "Bearer " (no token)<br>2. Send request | 401 Unauthorized, result=1, error_message="Authentication is required." |
-| TC04 | Bearer token with special characters | N/A | 1. Set Authorization header to "Bearer !@#$%^&*()"<br>2. Send request | 401 Unauthorized, result=1, error_message="Authentication is required." |
-| TC05 | Missing Accept header | User completed account linkage | 1. Send request without Accept header | 200 OK with normal data or 400 depending on implementation |
-| TC06 | Missing Content-Type header | User completed account linkage | 1. Send request without Content-Type header | 200 OK with normal data or 400 depending on implementation |
-| TC07 | Point amount boundary values | master_campaign configured with point_amount=0 and maximum values | 1. Request campaign list | 200 OK, campaigns with point_amount 0 and max value, correct type |
-| TC08 | Special characters in campaign fields | master_campaign configured with special characters in title/eligibility/documents | 1. Request campaign list | 200 OK, special characters properly displayed in title, brief_eligibility, required_documents |
-| TC09 | Point grant date boundary values | master_campaign configured with point_grant_date "1970-01-01" and "9999-12-31" | 1. Request campaign list | 200 OK, point_grant_date in ISO 8601 format (YYYY-MM-DD) |
-
-## Error Scenarios
+## RequiredCheck (必需字段检查)
 
 | Test Case ID | Test Name | Preconditions | Steps | Expected Result |
 |---|---|---|---|---|
-| TC10 | Missing Authorization header | N/A | 1. Send GET /campaign/list without Authorization header | 401 Unauthorized, result=1, error_message="Authentication is required." |
-| TC11 | Invalid or expired Bearer token | N/A | 1. Send request with invalid/expired token | 401 Unauthorized, result=1, error_message="Authentication is required." |
-| TC12 | Account linkage not completed | No record in account_linkage table for user | 1. Send request with valid token | 403 Forbidden, result=2, error_message="Please complete account linkage first." |
-| TC13 | Database connection error | Database unavailable | 1. Send normal request | 500 Internal Server Error, result=3, error_message="A system error has occurred." |
-| TC14 | Service temporarily unavailable | Service under maintenance | 1. Send normal request | 503 Service Unavailable, result=4, error_message="The service is temporarily unavailable." |
-| TC15 | Gateway timeout | Backend timeout | 1. Send normal request | 504 Gateway Timeout, result=5, error_message="Request timed out." |
+| RC01 | Missing Authorization header | N/A | 1. Send GET /campaign/list<br>2. Omit Authorization header<br>3. Include other required headers | HTTP 401<br>result=1<br>error_message="Authentication is required." |
+| RC02 | Missing Accept header | User completed account linkage | 1. Send GET /campaign/list<br>2. Omit Accept header<br>3. Include Authorization and Content-Type | HTTP 200 or 400 (implementation-dependent)<br>If 200: return valid campaign data |
+| RC03 | Missing Content-Type header | User completed account linkage | 1. Send GET /campaign/list<br>2. Omit Content-Type header<br>3. Include Authorization and Accept | HTTP 200 or 400 (implementation-dependent)<br>If 200: return valid campaign data |
+| RC04 | Empty Bearer token value | N/A | 1. Set Authorization: "Bearer "<br>2. Send GET /campaign/list | HTTP 401<br>result=1<br>error_message="Authentication is required." |
+| RC05 | Bearer token without "Bearer " prefix | N/A | 1. Set Authorization: "token_value_only"<br>2. Send GET /campaign/list | HTTP 401<br>result=1<br>error_message="Authentication is required." |
 
-## Business Rule Scenarios
+## LengthCheck (长度和边界值检查)
 
 | Test Case ID | Test Name | Preconditions | Steps | Expected Result |
 |---|---|---|---|---|
-| TC16 | All campaigns already applied | User applied to all campaigns with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list with valid token | 200 OK, result=0, campaigns=[] |
-| TC17 | New campaign visibility after creation | New campaign added to master_campaign; user hasn't applied | 1. Send GET /campaign/list | 200 OK, campaigns includes new campaign |
-| TC18 | Campaign hidden after application approved | User has application with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list | 200 OK, campaign not in returned list |
-| TC19 | Multi-account campaign isolation | User has multiple customer_number; some with applications, some without | 1. Request with each customer_number<br>2. Verify results differ | Each request returns only unapplied campaigns for that customer_number |
+| LC01 | point_amount = 0 | master_campaign contains campaign with point_amount=0 | 1. Send GET /campaign/list with valid token | HTTP 200<br>result=0<br>Campaign with point_amount=0 displayed correctly as Number type |
+| LC02 | point_amount = maximum value (999999999) | master_campaign contains campaign with point_amount=999999999 | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>Campaign with maximum point_amount displayed correctly |
+| LC03 | Campaign title with maximum length | master_campaign contains campaign with very long title (255+ chars) | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>Full title returned without truncation |
+| LC04 | brief_eligibility with many conditions (10+ items) | master_campaign contains campaign with 10+ eligibility conditions | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>All brief_eligibility items returned in array |
+| LC05 | required_documents with many items (5+ docs) | master_campaign contains campaign requiring 5+ documents | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>All required_documents items returned with id and title |
+| LC06 | point_grant_date = "1970-01-01" (minimum date) | master_campaign contains campaign with point_grant_date="1970-01-01" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>point_grant_date="1970-01-01" in YYYY-MM-DD format |
+| LC07 | point_grant_date = "9999-12-31" (maximum date) | master_campaign contains campaign with point_grant_date="9999-12-31" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>point_grant_date="9999-12-31" in YYYY-MM-DD format |
+
+## ValidationCheck (格式和特殊字符检查)
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| VC01 | Bearer token with special characters | N/A | 1. Set Authorization: "Bearer !@#$%^&*()"<br>2. Send GET /campaign/list | HTTP 401<br>result=1<br>error_message="Authentication is required." |
+| VC02 | Campaign title with special characters (emoji, symbols) | master_campaign contains title with emoji and symbols: "特典🎉!@#$%" | 1. Send GET /campaign/list with valid token | HTTP 200<br>result=0<br>Title correctly displays: "特典🎉!@#$%" |
+| VC03 | brief_eligibility with special characters and line breaks | master_campaign contains eligibility with \n and special chars | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>brief_eligibility array items preserve special characters and formatting |
+| VC04 | required_documents title with special characters | master_campaign contains document title: "融資実行確認書類（#001）" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>Document title correctly displays with parentheses and numbers |
+| VC05 | point_grant_date invalid format (non-ISO 8601) | N/A (server-side validation) | 1. Verify response point_grant_date | HTTP 200<br>All point_grant_date values strictly match YYYY-MM-DD format<br>No timestamps or other formats |
+| VC06 | campaign id format validation | master_campaign contains campaigns with id=1, id=999, id=1000000 | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>All campaign ids are returned as Integer type |
+| VC07 | Response result field = 0 for success | User completed account linkage; valid request | 1. Send GET /campaign/list | HTTP 200<br>result field value is exactly 0 (Integer, not string "0") |
+
+## LogicCheck (业务逻辑检查)
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| LGC01 | Campaign hidden if user has approved application | applications table: user has campaign_id=1 with status="Final approved" | 1. Send GET /campaign/list with valid token | HTTP 200<br>result=0<br>campaign id=1 NOT in returned campaigns array |
+| LGC02 | Campaign hidden if user has "Under review" application | applications table: user has campaign_id=2 with status="Under review" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>campaign id=2 NOT in returned campaigns array |
+| LGC03 | Campaign hidden if user has "Grant Done" application | applications table: user has campaign_id=3 with status="Grant Done" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>campaign id=3 NOT in returned campaigns array |
+| LGC04 | Campaign shown if user has "Rejected" application | applications table: user has campaign_id=4 with status="Rejected" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>campaign id=4 IS in returned campaigns array |
+| LGC05 | Campaign shown if user has "Withdrawn" application | applications table: user has campaign_id=5 with status="Withdrawn" | 1. Send GET /campaign/list | HTTP 200<br>result=0<br>campaign id=5 IS in returned campaigns array |
+| LGC06 | New campaign appears after insertion | master_campaign: insert new campaign with id=100, title="New Campaign" | 1. Send GET /campaign/list before insert<br>2. Insert new campaign<br>3. Send GET /campaign/list after insert | First response: campaign id=100 not present<br>Second response: campaign id=100 present with all required fields |
+| LGC07 | Multiple customer_number isolation | User has 2 customer_numbers; customer_A applied to campaign 1; customer_B hasn't applied | 1. Request with customer_A token<br>2. Request with customer_B token | customer_A response: campaign 1 NOT in list<br>customer_B response: campaign 1 IS in list |
+| LGC08 | Campaigns ordered by id ascending | master_campaign contains campaigns with ids: 5, 2, 10, 1 | 1. Send GET /campaign/list | HTTP 200<br>campaigns array returned in ascending order by id: 1, 2, 5, 10 |
+
+## ErrorCheck (错误场景检查)
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| EC01 | Invalid or expired Bearer token | N/A | 1. Use expired/invalid token<br>2. Send GET /campaign/list | HTTP 401<br>result=1<br>error_message="Authentication is required." |
+| EC02 | Account linkage not completed | account_linkage table: no record for this user's easy_id and customer_number | 1. Use valid token but no linkage<br>2. Send GET /campaign/list | HTTP 403<br>result=2<br>error_message="Please complete account linkage first." |
+| EC03 | Database connection error | Database is unavailable/offline | 1. Send GET /campaign/list<br>2. Database connection fails | HTTP 500<br>result=3<br>error_message="A system error has occurred." |
+| EC04 | Service temporarily unavailable | Service is under maintenance/deployment | 1. Send GET /campaign/list | HTTP 503<br>result=4<br>error_message="The service is temporarily unavailable." |
+| EC05 | Gateway or upstream timeout | Backend service is slow/unresponsive (>timeout threshold) | 1. Send GET /campaign/list | HTTP 504<br>result=5<br>error_message="Request timed out." |
+| EC06 | Malformed Authorization header (missing space) | Authorization header = "Bearertoken123" (no space) | 1. Set Authorization: "Bearertoken123"<br>2. Send GET /campaign/list | HTTP 401<br>result=1<br>error_message="Authentication is required." |
+| EC07 | Wrong authentication scheme | Authorization header = "Basic base64encodedtoken" | 1. Set Authorization: "Basic base64string"<br>2. Send GET /campaign/list | HTTP 401<br>result=1<br>error_message="Authentication is required." |
+| EC08 | Response structure validation - missing result field | Backend error: response omits result field | 1. Send GET /campaign/list | HTTP 200 (but invalid structure)<br>Verify response must contain result field as Integer |
+| EC09 | Response structure validation - missing campaigns field on success | Backend error: 200 response omits campaigns field | 1. Send GET /campaign/list with valid token | HTTP 200 (but invalid)<br>Verify response must contain campaigns array field |
+| EC10 | Response structure validation - error response has both result and campaigns | Backend error: 401 response includes both result and campaigns | 1. Send request with invalid token<br>2. Receive 401 response | HTTP 401<br>Response contains result and error_message<br>Response should NOT contain campaigns field |
