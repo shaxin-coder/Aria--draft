@@ -175,3 +175,44 @@
         - 各自返回各自未申请的活动列表
 
 ---
+
+# Campaign List API - Test Cases (Table Format)
+
+## Normal Scenarios
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| TC01 | Retrieve available campaigns successfully | User completed account linkage; DB has available campaigns; user hasn't applied to all | 1. Send GET /campaign/list with valid Bearer token and correct headers | 200 OK, result=0, campaigns array with complete fields matching spec |
+| TC02 | Retrieve empty campaign list | User completed account linkage; all campaigns already applied or none available | 1. Send GET /campaign/list with valid Bearer token | 200 OK, result=0, campaigns=[] |
+
+## Boundary Scenarios
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| TC03 | Bearer token empty | N/A | 1. Set Authorization header to "Bearer " (no token)<br>2. Send request | 401 Unauthorized, result=1, error_message="Authentication is required." |
+| TC04 | Bearer token with special characters | N/A | 1. Set Authorization header to "Bearer !@#$%^&*()"<br>2. Send request | 401 Unauthorized, result=1, error_message="Authentication is required." |
+| TC05 | Missing Accept header | User completed account linkage | 1. Send request without Accept header | 200 OK with normal data or 400 depending on implementation |
+| TC06 | Missing Content-Type header | User completed account linkage | 1. Send request without Content-Type header | 200 OK with normal data or 400 depending on implementation |
+| TC07 | Point amount boundary values | master_campaign configured with point_amount=0 and maximum values | 1. Request campaign list | 200 OK, campaigns with point_amount 0 and max value, correct type |
+| TC08 | Special characters in campaign fields | master_campaign configured with special characters in title/eligibility/documents | 1. Request campaign list | 200 OK, special characters properly displayed in title, brief_eligibility, required_documents |
+| TC09 | Point grant date boundary values | master_campaign configured with point_grant_date "1970-01-01" and "9999-12-31" | 1. Request campaign list | 200 OK, point_grant_date in ISO 8601 format (YYYY-MM-DD) |
+
+## Error Scenarios
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| TC10 | Missing Authorization header | N/A | 1. Send GET /campaign/list without Authorization header | 401 Unauthorized, result=1, error_message="Authentication is required." |
+| TC11 | Invalid or expired Bearer token | N/A | 1. Send request with invalid/expired token | 401 Unauthorized, result=1, error_message="Authentication is required." |
+| TC12 | Account linkage not completed | No record in account_linkage table for user | 1. Send request with valid token | 403 Forbidden, result=2, error_message="Please complete account linkage first." |
+| TC13 | Database connection error | Database unavailable | 1. Send normal request | 500 Internal Server Error, result=3, error_message="A system error has occurred." |
+| TC14 | Service temporarily unavailable | Service under maintenance | 1. Send normal request | 503 Service Unavailable, result=4, error_message="The service is temporarily unavailable." |
+| TC15 | Gateway timeout | Backend timeout | 1. Send normal request | 504 Gateway Timeout, result=5, error_message="Request timed out." |
+
+## Business Rule Scenarios
+
+| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
+|---|---|---|---|---|
+| TC16 | All campaigns already applied | User applied to all campaigns with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list with valid token | 200 OK, result=0, campaigns=[] |
+| TC17 | New campaign visibility after creation | New campaign added to master_campaign; user hasn't applied | 1. Send GET /campaign/list | 200 OK, campaigns includes new campaign |
+| TC18 | Campaign hidden after application approved | User has application with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list | 200 OK, campaign not in returned list |
+| TC19 | Multi-account campaign isolation | User has multiple customer_number; some with applications, some without | 1. Request with each customer_number<br>2. Verify results differ | Each request returns only unapplied campaigns for that customer_number |
