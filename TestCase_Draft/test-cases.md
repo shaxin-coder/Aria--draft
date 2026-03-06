@@ -4,7 +4,7 @@
 
 | Test Case ID | Test Name | Preconditions | Steps | Expected Result |
 |---|---|---|---|---|
-| HP01 | Retrieve available campaigns successfully | 1. User completed account linkage<br>2. DB has 2+ available campaigns<br>3. User hasn't applied to all | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept: application/json<br>4. Include Content-Type: application/json | 1. HTTP 200<br>2. result=0<br>3. campaigns array with id, title, brief_eligibility (array), point_amount, required_documents (array), point_grant_date in YYYY-MM-DD format |
+| HP01 | Retrieve available campaigns successfully | 1. User completed account linkage<br>2. DB has 2+ available campaigns<br>3. User hasn't applied to all | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept: application/json<br>4. Include Content-Type: application/json | 1. HTTP 200<br>2. result=0<br>3. campaigns array with id, title, brief_eligibility (array), point_amount1, required_documents (array), point_grant_date in YYYY-MM-DD format |
 | HP02 | Retrieve empty campaign list (no eligible campaigns) | 1. User completed account linkage<br>2. All campaigns already applied with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list with valid Bearer token and headers | 1. HTTP 200<br>2. result=0<br>3. campaigns=[] (empty array) |
 | HP03 | Retrieve campaigns with multiple documents | 1. User completed account linkage<br>2. Campaigns have multiple required_documents | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Each campaign's required_documents contains multiple objects with id and title |
 
