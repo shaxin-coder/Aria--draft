@@ -1,6 +1,8 @@
-# Campaign List API - Comprehensive Test Cases
+
 
 ## Test Case Summary Matrix
+
+Option1:
 
 | Module / API Name  | Scenario        | Test Description                                             | Case ID | Priority | Case Count |
 | ------------------ | --------------- | ------------------------------------------------------------ | ------- | -------- | ---------- |
@@ -47,6 +49,10 @@
 
 
 
+Option2:
+
+
+
 | Module / API Name  | Scenario        | Verification Points          | Test Description                                             | Case ID        | Priority    | Case Count |
 | ------------------ | --------------- | ---------------------------- | ------------------------------------------------------------ | -------------- | ----------- | ---------- |
 | GET /campaign/list | HappyPath       | Success Response Structure   | Retrieve campaigns with valid token and completed linkage    | HP01           | High        | 3          |
@@ -69,8 +75,6 @@
 | GET /campaign/list | ErrorCheck      | Authorization Errors         | Account linkage not completed (403 Forbidden)                | EC02           | High        |            |
 | GET /campaign/list | ErrorCheck      | Server Errors                | Database/system errors (500, 503, 504)                       | EC03-EC05      | High-Medium |            |
 | GET /campaign/list | ErrorCheck      | Response Validation          | Missing required fields in success/error responses           | EC08-EC10      | High        |            |
-
-
 
 **Total Test Cases: 40**
 
