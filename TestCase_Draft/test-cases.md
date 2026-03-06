@@ -1,71 +1,87 @@
 # Campaign List API - Comprehensive Test Cases
 
-## HappyPath (正常场景)
+Below are comprehensive test cases for the `/campaign/list` API, classified as required. Each test case includes: Case ID, Case Name, Priority, Precondition, Steps, Expected Result, Case Status, and Note.
 
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| HP01 | Retrieve available campaigns successfully | 1. User completed account linkage<br>2. DB has 2+ available campaigns<br>3. User hasn't applied to all | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept: application/json<br>4. Include Content-Type: application/json | 1. HTTP 200<br>2. result=0<br>3. campaigns array with id, title, brief_eligibility (array), point_amount1, required_documents (array), point_grant_date in YYYY-MM-DD format |
-| HP02 | Retrieve empty campaign list (no eligible campaigns) | 1. User completed account linkage<br>2. All campaigns already applied with status "Under review", "Final approved", or "Grant Done" | 1. Send GET /campaign/list with valid Bearer token and headers | 1. HTTP 200<br>2. result=0<br>3. campaigns=[] (empty array) |
-| HP03 | Retrieve campaigns with multiple documents | 1. User completed account linkage<br>2. Campaigns have multiple required_documents | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Each campaign's required_documents contains multiple objects with id and title |
+---
 
-## RequiredCheck (必需字段检查)
+## HappyPath
 
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| RC01 | Missing Authorization header | 1. N/A | 1. Send GET /campaign/list<br>2. Omit Authorization header<br>3. Include other required headers | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
-| RC02 | Missing Accept header | 1. User completed account linkage | 1. Send GET /campaign/list<br>2. Omit Accept header<br>3. Include Authorization and Content-Type | 1. HTTP 200 or 400<br>2. If 200: return valid campaign data |
-| RC03 | Missing Content-Type header | 1. User completed account linkage | 1. Send GET /campaign/list<br>2. Omit Content-Type header<br>3. Include Authorization and Accept | 1. HTTP 200 or 400<br>2. If 200: return valid campaign data |
-| RC04 | Empty Bearer token value | 1. N/A | 1. Set Authorization: "Bearer "<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
-| RC05 | Bearer token without "Bearer " prefix | 1. N/A | 1. Set Authorization: "token_value_only"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
+| Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Case Status | Note |
+|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+| HP01 | Retrieve campaigns successfully | High | 1. User has completed account linkage<br>2. User has not applied to all campaigns<br>3. DB has 2+ campaigns | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept and Content-Type headers | 1. HTTP 200<br>2. result=0<br>3. campaigns array with all required fields | Not Run | - |
+| HP02 | Retrieve empty campaign list | Medium | 1. User has completed account linkage<br>2. User has applied to all campaigns (status: Under review, Final approved, Grant Done) | 1. Send GET /campaign/list with valid token and headers | 1. HTTP 200<br>2. result=0<br>3. campaigns=[] | Not Run | - |
+| HP03 | Retrieve campaigns with multiple required_documents | Medium | 1. User has completed account linkage<br>2. Campaigns have multiple required_documents | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Each campaign's required_documents contains multiple objects | Not Run | - |
 
-## LengthCheck (长度和边界值检查)
+---
 
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| LC01 | point_amount = 0 | 1. master_campaign contains campaign with point_amount=0 | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Campaign with point_amount=0 displayed correctly as Number type |
-| LC02 | point_amount = maximum value (999999999) | 1. master_campaign contains campaign with point_amount=999999999 | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. Campaign with maximum point_amount displayed correctly |
-| LC03 | Campaign title with maximum length | 1. master_campaign contains campaign with very long title (255+ chars) | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. Full title returned without truncation |
-| LC04 | brief_eligibility with many conditions (10+ items) | 1. master_campaign contains campaign with 10+ eligibility conditions | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. All brief_eligibility items returned in array |
-| LC05 | required_documents with many items (5+ docs) | 1. master_campaign contains campaign requiring 5+ documents | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. All required_documents items returned with id and title |
-| LC06 | point_grant_date = "1970-01-01" (minimum date) | 1. master_campaign contains campaign with point_grant_date="1970-01-01" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. point_grant_date="1970-01-01" in YYYY-MM-DD format |
-| LC07 | point_grant_date = "9999-12-31" (maximum date) | 1. master_campaign contains campaign with point_grant_date="9999-12-31" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. point_grant_date="9999-12-31" in YYYY-MM-DD format |
+## RequiredCheck
 
-## ValidationCheck (格式和特殊字符检查)
+| Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Case Status | Note |
+|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+| RC01 | Missing Authorization header | High | 1. None | 1. Send GET /campaign/list<br>2. Omit Authorization header<br>3. Include other required headers | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
+| RC02 | Missing Accept header | Medium | 1. User has completed account linkage | 1. Send GET /campaign/list<br>2. Omit Accept header<br>3. Include Authorization and Content-Type | 1. HTTP 200 or 400<br>2. If 200: valid campaign data | Not Run | - |
+| RC03 | Missing Content-Type header | Medium | 1. User has completed account linkage | 1. Send GET /campaign/list<br>2. Omit Content-Type header<br>3. Include Authorization and Accept | 1. HTTP 200 or 400<br>2. If 200: valid campaign data | Not Run | - |
+| RC04 | Empty Bearer token value | High | 1. None | 1. Set Authorization: "Bearer "<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
+| RC05 | Bearer token without "Bearer " prefix | High | 1. None | 1. Set Authorization: "token_value_only"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
 
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| VC01 | Bearer token with special characters | 1. N/A | 1. Set Authorization: "Bearer !@#$%^&*()"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
-| VC02 | Campaign title with special characters (emoji, symbols) | 1. master_campaign contains title with emoji and symbols: "特典🎉!@#$%" | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Title correctly displays: "特典🎉!@#$%" |
-| VC03 | brief_eligibility with special characters and line breaks | 1. master_campaign contains eligibility with \n and special chars | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. brief_eligibility array items preserve special characters and formatting |
-| VC04 | required_documents title with special characters | 1. master_campaign contains document title: "融資実行確認書類（#001）" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. Document title correctly displays with parentheses and numbers |
-| VC05 | point_grant_date invalid format (non-ISO 8601) | 1. N/A (server-side validation) | 1. Verify response point_grant_date | 1. HTTP 200<br>2. All point_grant_date values strictly match YYYY-MM-DD format<br>3. No timestamps or other formats |
-| VC06 | campaign id format validation | 1. master_campaign contains campaigns with id=1, id=999, id=1000000 | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. All campaign ids are returned as Integer type |
-| VC07 | Response result field = 0 for success | 1. User completed account linkage<br>2. Valid request | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result field value is exactly 0 (Integer, not string "0") |
+---
 
-## LogicCheck (业务逻辑检查)
+## LengthCheck
 
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| LGC01 | Campaign hidden if user has approved application | 1. applications table: user has campaign_id=1 with status="Final approved" | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. campaign id=1 NOT in returned campaigns array |
-| LGC02 | Campaign hidden if user has "Under review" application | 1. applications table: user has campaign_id=2 with status="Under review" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=2 NOT in returned campaigns array |
-| LGC03 | Campaign hidden if user has "Grant Done" application | 1. applications table: user has campaign_id=3 with status="Grant Done" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=3 NOT in returned campaigns array |
-| LGC04 | Campaign shown if user has "Rejected" application | 1. applications table: user has campaign_id=4 with status="Rejected" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=4 IS in returned campaigns array |
-| LGC05 | Campaign shown if user has "Withdrawn" application | 1. applications table: user has campaign_id=5 with status="Withdrawn" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=5 IS in returned campaigns array |
-| LGC06 | New campaign appears after insertion | 1. master_campaign: insert new campaign with id=100, title="New Campaign" | 1. Send GET /campaign/list before insert<br>2. Insert new campaign<br>3. Send GET /campaign/list after insert | 1. First response: campaign id=100 not present<br>2. Second response: campaign id=100 present with all required fields |
-| LGC07 | Multiple customer_number isolation | 1. User has 2 customer_numbers<br>2. customer_A applied to campaign 1<br>3. customer_B hasn't applied | 1. Request with customer_A token<br>2. Request with customer_B token | 1. customer_A response: campaign 1 NOT in list<br>2. customer_B response: campaign 1 IS in list |
-| LGC08 | Campaigns ordered by id ascending | 1. master_campaign contains campaigns with ids: 5, 2, 10, 1 | 1. Send GET /campaign/list | 1. HTTP 200<br>2. campaigns array returned in ascending order by id: 1, 2, 5, 10 |
+| Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Case Status | Note |
+|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+| LC01 | point_amount = 0 | Medium | 1. master_campaign has campaign with point_amount=0 | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Campaign with point_amount=0 displayed as Number | Not Run | - |
+| LC02 | point_amount = maximum value | Medium | 1. master_campaign has campaign with point_amount=999999999 | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. Campaign with maximum point_amount displayed | Not Run | - |
+| LC03 | Campaign title with maximum length | Medium | 1. master_campaign has campaign with title length 255+ chars | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. Full title returned | Not Run | - |
+| LC04 | brief_eligibility with many conditions | Low | 1. master_campaign has campaign with 10+ eligibility conditions | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. All brief_eligibility items returned | Not Run | - |
+| LC05 | required_documents with many items | Low | 1. master_campaign has campaign with 5+ required_documents | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. All required_documents returned | Not Run | - |
+| LC06 | point_grant_date = "1970-01-01" | Low | 1. master_campaign has campaign with point_grant_date="1970-01-01" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. point_grant_date="1970-01-01" | Not Run | - |
+| LC07 | point_grant_date = "9999-12-31" | Low | 1. master_campaign has campaign with point_grant_date="9999-12-31" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. point_grant_date="9999-12-31" | Not Run | - |
 
-## ErrorCheck (错误场景检查)
+---
 
-| Test Case ID | Test Name | Preconditions | Steps | Expected Result |
-|---|---|---|---|---|
-| EC01 | Invalid or expired Bearer token | 1. N/A | 1. Use expired/invalid token<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
-| EC02 | Account linkage not completed | 1. account_linkage table: no record for this user's easy_id and customer_number | 1. Use valid token but no linkage<br>2. Send GET /campaign/list | 1. HTTP 403<br>2. result=2<br>3. error_message="Please complete account linkage first." |
-| EC03 | Database connection error | 1. Database is unavailable/offline | 1. Send GET /campaign/list<br>2. Database connection fails | 1. HTTP 500<br>2. result=3<br>3. error_message="A system error has occurred." |
-| EC04 | Service temporarily unavailable | 1. Service is under maintenance/deployment | 1. Send GET /campaign/list | 1. HTTP 503<br>2. result=4<br>3. error_message="The service is temporarily unavailable." |
-| EC05 | Gateway or upstream timeout | 1. Backend service is slow/unresponsive (>timeout threshold) | 1. Send GET /campaign/list | 1. HTTP 504<br>2. result=5<br>3. error_message="Request timed out." |
-| EC06 | Malformed Authorization header (missing space) | 1. Authorization header = "Bearertoken123" (no space) | 1. Set Authorization: "Bearertoken123"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
-| EC07 | Wrong authentication scheme | 1. Authorization header = "Basic base64encodedtoken" | 1. Set Authorization: "Basic base64string"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." |
-| EC08 | Response structure validation - missing result field | 1. Backend error: response omits result field | 1. Send GET /campaign/list | 1. HTTP 200 (but invalid structure)<br>2. Verify response must contain result field as Integer |
-| EC09 | Response structure validation - missing campaigns field on success | 1. Backend error: 200 response omits campaigns field | 1. Send GET /campaign/list with valid token | 1. HTTP 200 (but invalid)<br>2. Verify response must contain campaigns array field |
-| EC10 | Response structure validation - error response has both result and campaigns | 1. Backend error: 401 response includes both result and campaigns | 1. Send request with invalid token<br>2. Receive 401 response | 1. HTTP 401<br>2. Response contains result and error_message<br>3. Response should NOT contain campaigns field |
+## ValidationCheck
+
+| Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Case Status | Note |
+|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+| VC01 | Bearer token with special characters | Medium | 1. None | 1. Set Authorization: "Bearer !@#$%^&*()"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
+| VC02 | Campaign title with special characters | Low | 1. master_campaign has title with emoji/symbols | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Title displays special characters | Not Run | - |
+| VC03 | brief_eligibility with special characters/line breaks | Low | 1. master_campaign has eligibility with \n and special chars | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. brief_eligibility preserves formatting | Not Run | - |
+| VC04 | required_documents title with special characters | Low | 1. master_campaign has document title with special chars | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. Document title displays special characters | Not Run | - |
+| VC05 | point_grant_date invalid format | High | 1. None (server-side validation) | 1. Verify response point_grant_date | 1. HTTP 200<br>2. All point_grant_date values match YYYY-MM-DD | Not Run | - |
+| VC06 | campaign id format validation | Medium | 1. master_campaign has campaigns with id=1,999,1000000 | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. All campaign ids are Integer | Not Run | - |
+| VC07 | result field is integer 0 on success | High | 1. User has completed account linkage | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0 (Integer) | Not Run | - |
+
+---
+
+## LogicCheck
+
+| Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Case Status | Note |
+|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+| LGC01 | Campaign hidden if user has approved application | High | 1. applications: user has campaign_id=1, status="Final approved" | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. campaign id=1 NOT in campaigns | Not Run | - |
+| LGC02 | Campaign hidden if user has "Under review" application | High | 1. applications: user has campaign_id=2, status="Under review" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=2 NOT in campaigns | Not Run | - |
+| LGC03 | Campaign hidden if user has "Grant Done" application | High | 1. applications: user has campaign_id=3, status="Grant Done" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=3 NOT in campaigns | Not Run | - |
+| LGC04 | Campaign shown if user has "Rejected" application | Medium | 1. applications: user has campaign_id=4, status="Rejected" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=4 IS in campaigns | Not Run | - |
+| LGC05 | Campaign shown if user has "Withdrawn" application | Medium | 1. applications: user has campaign_id=5, status="Withdrawn" | 1. Send GET /campaign/list | 1. HTTP 200<br>2. result=0<br>3. campaign id=5 IS in campaigns | Not Run | - |
+| LGC06 | New campaign appears after insertion | Medium | 1. master_campaign: insert new campaign id=100 | 1. Send GET /campaign/list before insert<br>2. Insert new campaign<br>3. Send GET /campaign/list after insert | 1. First: campaign id=100 not present<br>2. Second: campaign id=100 present | Not Run | - |
+| LGC07 | Multiple customer_number isolation | High | 1. User has 2 customer_numbers<br>2. customer_A applied to campaign 1<br>3. customer_B hasn't applied | 1. Request with customer_A token<br>2. Request with customer_B token | 1. customer_A: campaign 1 NOT in list<br>2. customer_B: campaign 1 IS in list | Not Run | - |
+| LGC08 | Campaigns ordered by id ascending | Low | 1. master_campaign has campaigns with ids: 5,2,10,1 | 1. Send GET /campaign/list | 1. HTTP 200<br>2. campaigns ordered by id: 1,2,5,10 | Not Run | - |
+
+---
+
+## ErrorCheck
+
+| Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Case Status | Note |
+|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+| EC01 | Invalid or expired Bearer token | High | 1. None | 1. Use expired/invalid token<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
+| EC02 | Account linkage not completed | High | 1. account_linkage: no record for user | 1. Use valid token, no linkage<br>2. Send GET /campaign/list | 1. HTTP 403<br>2. result=2<br>3. error_message="Please complete account linkage first." | Not Run | - |
+| EC03 | Database connection error | High | 1. Database unavailable | 1. Send GET /campaign/list<br>2. DB connection fails | 1. HTTP 500<br>2. result=3<br>3. error_message="A system error has occurred." | Not Run | - |
+| EC04 | Service temporarily unavailable | Medium | 1. Service under maintenance | 1. Send GET /campaign/list | 1. HTTP 503<br>2. result=4<br>3. error_message="The service is temporarily unavailable." | Not Run | - |
+| EC05 | Gateway or upstream timeout | Medium | 1. Backend slow/unresponsive | 1. Send GET /campaign/list | 1. HTTP 504<br>2. result=5<br>3. error_message="Request timed out." | Not Run | - |
+| EC06 | Malformed Authorization header (missing space) | High | 1. Authorization="Bearertoken123" | 1. Set Authorization: "Bearertoken123"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
+| EC07 | Wrong authentication scheme | High | 1. Authorization="Basic base64string" | 1. Set Authorization: "Basic base64string"<br>2. Send GET /campaign/list | 1. HTTP 401<br>2. result=1<br>3. error_message="Authentication is required." | Not Run | - |
+| EC08 | Response missing result field | High | 1. Backend omits result field | 1. Send GET /campaign/list | 1. HTTP 200 (invalid structure)<br>2. Response must contain result field as Integer | Not Run | - |
+| EC09 | Response missing campaigns field on success | High | 1. Backend omits campaigns field | 1. Send GET /campaign/list with valid token | 1. HTTP 200 (invalid)<br>2. Response must contain campaigns array | Not Run | - |
+| EC10 | Error response has both result and campaigns | High | 1. Backend 401 includes both result and campaigns | 1. Send request with invalid token<br>2. Receive 401 | 1. HTTP 401<br>2. Response should NOT contain campaigns field | Not Run | - |
+
+---
