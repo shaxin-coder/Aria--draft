@@ -20,14 +20,14 @@ TC-UI-[ModuleName]-[TYPE]-[NUMBER]
     2. TC-UI-IdLinkage-VAL-002
     3. TC-UI-IdLinkage-ERR-003
 
-Case status：
+### Case status：
 - Not Run 
 - Pass
 - Fail 
 - Blocked 
 - OutOfScope
 
-Priority:
+### Priority:
 - Critical
 - High
 - Medium
@@ -35,7 +35,7 @@ Priority:
 
 ## Test Case Summary Matrix
 
-Option1:
+### Option1:
 
 | Module / API Name / Batch Name | Scenario        | Test Description                                             | Case ID | Priority | Case Count |
 | ------------------ | --------------- | ------------------------------------------------------------ | ------- | -------- | ---------- |
@@ -82,7 +82,7 @@ Option1:
 
 
 
-Option2:
+### Option2:
 
 
 
