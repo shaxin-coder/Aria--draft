@@ -2,6 +2,19 @@
 
 ## Test Case Summary Matrix
 
+Case status：
+- Not Run 
+- Pass
+- Fail 
+- Blocked 
+- OutOfScope
+
+Priority:
+- Critical
+- High
+- Medium
+- Low
+
 Option1:
 
 | Module / API Name  | Scenario        | Test Description                                             | Case ID | Priority | Case Count |
