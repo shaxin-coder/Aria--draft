@@ -37,7 +37,7 @@ TC-UI-[ModuleName]-[TYPE]-[NUMBER]
 
 ### Option1:
 
-| Case ID | Priority | Scenario        | Verification Points                                    | Test Description                                             |
+| Case ID | Priority | Category        | Verification Points                                    | Test Description                                             |
 | ------- | -------- | --------------- | ------------------------------------------------------ | ------------------------------------------------------------ |
 | HP01    | High     | HappyPath       | Valid token and account linkage                        | Retrieve campaigns successfully with valid token and linkage |
 | HP02    | Medium   | HappyPath       | Campaign list empty when all campaigns already applied | Retrieve empty campaign list when all campaigns applied      |
