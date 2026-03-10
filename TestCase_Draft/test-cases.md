@@ -37,48 +37,48 @@ TC-UI-[ModuleName]-[TYPE]-[NUMBER]
 
 ### Option1:
 
-| Case ID | Priority | Category        | Verification Points                                    | Test Description                                             |
-| ------- | -------- | --------------- | ------------------------------------------------------ | ------------------------------------------------------------ |
-| HP01    | High     | HappyPath       | Valid token and account linkage                        | Retrieve campaigns successfully with valid token and linkage |
-| HP02    | Medium   | HappyPath       | Campaign list empty when all campaigns already applied | Retrieve empty campaign list when all campaigns applied      |
-| HP03    | Medium   | HappyPath       | Campaign includes multiple required documents          | Retrieve campaigns with multiple required documents          |
-| RC01    | High     | RequiredCheck   | Authorization header missing                           | Missing Authorization header validation                      |
-| RC02    | Medium   | RequiredCheck   | Accept header missing                                  | Missing Accept header validation                             |
-| RC03    | Medium   | RequiredCheck   | Content-Type header missing                            | Missing Content-Type header validation                       |
-| RC04    | High     | RequiredCheck   | Bearer token value empty                               | Empty Bearer token value                                     |
-| RC05    | High     | RequiredCheck   | Bearer token without prefix                            | Bearer token without prefix                                  |
-| LC01    | Medium   | LengthCheck     | Point amount boundary equals 0                         | Point amount boundary: zero value                            |
-| LC02    | Medium   | LengthCheck     | Point amount maximum boundary                          | Point amount boundary: maximum value                         |
-| LC03    | Medium   | LengthCheck     | Campaign title maximum length                          | Campaign title with maximum length                           |
-| LC04    | Low      | LengthCheck     | Large number of eligibility conditions                 | Brief eligibility with many conditions                       |
-| LC05    | Low      | LengthCheck     | Large number of required documents                     | Required documents with many items                           |
-| LC06    | Low      | LengthCheck     | Minimum point grant date boundary                      | Point grant date boundary: minimum date                      |
-| LC07    | Low      | LengthCheck     | Maximum point grant date boundary                      | Point grant date boundary: maximum date                      |
-| VC01    | Medium   | ValidationCheck | Bearer token contains special characters               | Bearer token with special characters                         |
-| VC02    | Low      | ValidationCheck | Campaign title contains special characters             | Campaign title with special characters                       |
-| VC03    | Low      | ValidationCheck | Eligibility text contains special characters           | Brief eligibility with special characters                    |
-| VC04    | Low      | ValidationCheck | Document title contains special characters             | Document title with special characters                       |
-| VC05    | High     | ValidationCheck | Date format must follow YYYY-MM-DD                     | Point grant date format validation                           |
-| VC06    | Medium   | ValidationCheck | Campaign ID must be integer format                     | Campaign ID format validation                                |
-| VC07    | High     | ValidationCheck | Result field equals integer 0 on success               | Result field is integer 0 on success                         |
-| LGC01   | High     | LogicCheck      | Campaign hidden when approved application exists       | Campaign hidden if approved application exists               |
-| LGC02   | High     | LogicCheck      | Campaign hidden when application under review          | Campaign hidden if under review application                  |
-| LGC03   | High     | LogicCheck      | Campaign hidden when grant already completed           | Campaign hidden if grant done application                    |
-| LGC04   | Medium   | LogicCheck      | Campaign visible when application rejected             | Campaign shown if rejected application                       |
-| LGC05   | Medium   | LogicCheck      | Campaign visible when application withdrawn            | Campaign shown if withdrawn application                      |
-| LGC06   | Medium   | LogicCheck      | New campaign inserted appears in response              | New campaign appears after insertion                         |
-| LGC07   | High     | LogicCheck      | Campaign data isolated by customer number              | Multiple customer number isolation                           |
-| LGC08   | Low      | LogicCheck      | Campaign list ordered by campaign ID ascending         | Campaigns ordered by ID ascending                            |
-| EC01    | High     | ErrorCheck      | Invalid or expired Bearer token                        | Invalid or expired Bearer token                              |
-| EC02    | High     | ErrorCheck      | Account linkage not completed                          | Account linkage not completed (403)                          |
-| EC03    | High     | ErrorCheck      | Database connection failure                            | Database connection error (500)                              |
-| EC04    | Medium   | ErrorCheck      | Service temporarily unavailable                        | Service temporarily unavailable (503)                        |
-| EC05    | Medium   | ErrorCheck      | Gateway or upstream timeout                            | Gateway or upstream timeout (504)                            |
-| EC06    | High     | ErrorCheck      | Authorization header malformed                         | Malformed Authorization header                               |
-| EC07    | High     | ErrorCheck      | Wrong authentication scheme used                       | Wrong authentication scheme                                  |
-| EC08    | High     | ErrorCheck      | Response missing required field result                 | Response missing result field                                |
-| EC09    | High     | ErrorCheck      | Response missing campaigns field                       | Response missing campaigns field on success                  |
-| EC10    | High     | ErrorCheck      | Error response structure validation                    | Error response structure validation                          |
+| Case ID | Priority | Category        | Verification Points                                    | Test Description                                             | Note |
+| ------- | -------- | --------------- | ------------------------------------------------------ | ------------------------------------------------------------ | ---- |
+| HP01    | High     | HappyPath       | Valid token and account linkage                        | Retrieve campaigns successfully with valid token and linkage | ---- |
+| HP02    | Medium   | HappyPath       | Campaign list empty when all campaigns already applied | Retrieve empty campaign list when all campaigns applied      | ---- |
+| HP03    | Medium   | HappyPath       | Campaign includes multiple required documents          | Retrieve campaigns with multiple required documents          | ---- |
+| RC01    | High     | RequiredCheck   | Authorization header missing                           | Missing Authorization header validation                      | ---- |
+| RC02    | Medium   | RequiredCheck   | Accept header missing                                  | Missing Accept header validation                             | ---- |
+| RC03    | Medium   | RequiredCheck   | Content-Type header missing                            | Missing Content-Type header validation                       | ---- |
+| RC04    | High     | RequiredCheck   | Bearer token value empty                               | Empty Bearer token value                                     | ---- |
+| RC05    | High     | RequiredCheck   | Bearer token without prefix                            | Bearer token without prefix                                  | ---- |
+| LC01    | Medium   | LengthCheck     | Point amount boundary equals 0                         | Point amount boundary: zero value                            | ---- |
+| LC02    | Medium   | LengthCheck     | Point amount maximum boundary                          | Point amount boundary: maximum value                         | ---- |
+| LC03    | Medium   | LengthCheck     | Campaign title maximum length                          | Campaign title with maximum length                           | ---- |
+| LC04    | Low      | LengthCheck     | Large number of eligibility conditions                 | Brief eligibility with many conditions                       | ---- |
+| LC05    | Low      | LengthCheck     | Large number of required documents                     | Required documents with many items                           | ---- |
+| LC06    | Low      | LengthCheck     | Minimum point grant date boundary                      | Point grant date boundary: minimum date                      | ---- |
+| LC07    | Low      | LengthCheck     | Maximum point grant date boundary                      | Point grant date boundary: maximum date                      | ---- |
+| VC01    | Medium   | ValidationCheck | Bearer token contains special characters               | Bearer token with special characters                         | ---- |
+| VC02    | Low      | ValidationCheck | Campaign title contains special characters             | Campaign title with special characters                       | ---- |
+| VC03    | Low      | ValidationCheck | Eligibility text contains special characters           | Brief eligibility with special characters                    | ---- |
+| VC04    | Low      | ValidationCheck | Document title contains special characters             | Document title with special characters                       | ---- |
+| VC05    | High     | ValidationCheck | Date format must follow YYYY-MM-DD                     | Point grant date format validation                           | ---- |
+| VC06    | Medium   | ValidationCheck | Campaign ID must be integer format                     | Campaign ID format validation                                | ---- |
+| VC07    | High     | ValidationCheck | Result field equals integer 0 on success               | Result field is integer 0 on success                         | ---- |
+| LGC01   | High     | LogicCheck      | Campaign hidden when approved application exists       | Campaign hidden if approved application exists               | ---- |
+| LGC02   | High     | LogicCheck      | Campaign hidden when application under review          | Campaign hidden if under review application                  | ---- |
+| LGC03   | High     | LogicCheck      | Campaign hidden when grant already completed           | Campaign hidden if grant done application                    | ---- |
+| LGC04   | Medium   | LogicCheck      | Campaign visible when application rejected             | Campaign shown if rejected application                       | ---- |
+| LGC05   | Medium   | LogicCheck      | Campaign visible when application withdrawn            | Campaign shown if withdrawn application                      | ---- |
+| LGC06   | Medium   | LogicCheck      | New campaign inserted appears in response              | New campaign appears after insertion                         | ---- |
+| LGC07   | High     | LogicCheck      | Campaign data isolated by customer number              | Multiple customer number isolation                           | ---- |
+| LGC08   | Low      | LogicCheck      | Campaign list ordered by campaign ID ascending         | Campaigns ordered by ID ascending                            | ---- |
+| EC01    | High     | ErrorCheck      | Invalid or expired Bearer token                        | Invalid or expired Bearer token                              | ---- |
+| EC02    | High     | ErrorCheck      | Account linkage not completed                          | Account linkage not completed (403)                          | ---- |
+| EC03    | High     | ErrorCheck      | Database connection failure                            | Database connection error (500)                              | ---- |
+| EC04    | Medium   | ErrorCheck      | Service temporarily unavailable                        | Service temporarily unavailable (503)                        | ---- |
+| EC05    | Medium   | ErrorCheck      | Gateway or upstream timeout                            | Gateway or upstream timeout (504)                            | ---- |
+| EC06    | High     | ErrorCheck      | Authorization header malformed                         | Malformed Authorization header                               | ---- |
+| EC07    | High     | ErrorCheck      | Wrong authentication scheme used                       | Wrong authentication scheme                                  | ---- |
+| EC08    | High     | ErrorCheck      | Response missing required field result                 | Response missing result field                                | ---- |
+| EC09    | High     | ErrorCheck      | Response missing campaigns field                       | Response missing campaigns field on success                  | ---- |
+| EC10    | High     | ErrorCheck      | Error response structure validation                    | Error response structure validation                          | ---- |
 
 
 ### Option2:
