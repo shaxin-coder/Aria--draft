@@ -159,16 +159,16 @@ The following is the content of the Case template:
 
 The following is the content of the API Spec:
 [Paste the content of the copied api-spec.md here]
-# Campaign List API Interface
+# File Delete API Interface
 
 ## API Information
 
 | Field | Value |
 |-------|--------|
-| **API Name** | Retrieve Campaign List API |
-| **Description** | Return the list of campaigns available to the authenticated user. |
-| **HTTP Method** | GET |
-| **Endpoint** | `/campaign/list` |
+| **API Name** | Delete a File API |
+| **Description** | Permanently removes a file (both metadata and the actual object in Google Cloud Storage). |
+| **HTTP Method** | DELETE |
+| **Endpoint** | `/temp-applications/{tmp_app_id}/assets/{document_id}` |
 | **STG** | TBD |
 | **PROD** | TBD |
 | **Authentication** | Bearer token |
@@ -179,18 +179,24 @@ The following is the content of the API Spec:
 
 ## Request
 
+### Path Parameters
+
+| Column | Required | Type | Description |
+|--------|----------|------|-------------|
+| tmp_app_id | ○ | string (VARCHAR(36)) | The temporary application ID. |
+| document_id | ○ | string (VARCHAR(30)) | The document ID to delete. |
+
 ### Header
 
 | Column | Required | Value | Description |
 |--------|----------|-------|-------------|
 | Accept | ○ | `application/json` | |
-| Content-Type | ○ | `application/json` | Request charset should be UTF-8. |
 | Authorization | ○ | `Bearer &#60;access_token&#62;` | Authenticated user. |
 
 ### Sample Request URL
 
 ```
-GET https://`domain`/campaign/list
+DELETE https://`domain`/temp-applications/550e8400-e29b-41d4-a716-446655440000/assets/DOC20250326001
 ```
 
 ---
@@ -203,63 +209,9 @@ GET https://`domain`/campaign/list
 
 | Column | Required | Type | Constraint | Description |
 |--------|----------|------|------------|-------------|
-| Http Status Code | ○ | | | 200 |
+| Http Status Code | ○ | | | 204 No Content |
 
-#### JSON Body (Success Case)
-
-| Column | Required | Type | Description |
-|--------|----------|------|-------------|
-| result | ○ | Integer | Result code. Should be 0 in success case. |
-| campaigns | ○ | Array | List of available campaigns. Each item has id, title, brief_eligibility, point_amount, required_documents, point_grant_date. |
-
-**Each campaign item in `campaigns`:**
-
-| Column | Required | Type | Description |
-|--------|----------|------|-------------|
-| id | ○ | Integer | Campaign ID (from master_campaign). |
-| title | ○ | String | Campaign title. |
-| brief_eligibility | ○ | Array of String | Eligibility conditions as separate strings. |
-| point_amount | ○ | Number | Point amount (exact value). |
-| required_documents | ○ | Array of Object | List of required document types. Each object: id and title (e.g. doc_1, 融資実行確認書類). |
-| point_grant_date | ○ | String | Scheduled point grant date in **ISO 8601 date** format: `YYYY-MM-DD` (e.g. `2025-12-31`). |
-
-#### Sample Success Response
-
-```json
-{
-  "result": 0,
-  "campaigns": [
-    {
-      "id": 1,
-      "title": "新規ご契約特典",
-      "brief_eligibility": [
-        "2026年10月1日以降に住宅ローンの融資が実行されていること",
-        "同一債権に対するポイント申請1回限りとします",
-        "融資実行日から〇ヶ月以内に申請すること"
-      ],
-      "point_amount": 5000,
-      "required_documents": [
-        { "id": "doc_1", "title": "融資実行確認書類" }
-      ],
-      "point_grant_date": "2025-12-31"
-    },
-    {
-      "id": 2,
-      "title": "ご子息誕生お祝い特典",
-      "brief_eligibility": [
-        "2026年10月1日以降に住宅ローンの融資が実行されていること",
-        "同一債権に対するポイント申請1回限りとします",
-        "融資実行日から〇ヶ月以内に申請すること"
-      ],
-      "point_amount": 30000,
-      "required_documents": [
-        { "id": "doc_1", "title": "融資実行確認書類" }
-      ],
-      "point_grant_date": "2025-01-31"
-    }
-  ]
-}
-```
+**Note:** No response body is returned for successful deletion.
 
 ---
 
@@ -269,8 +221,7 @@ GET https://`domain`/campaign/list
 
 | Column | Required | Type | Constraint | Description |
 |--------|----------|------|------------|-------------|
-| Http Status Code | ○ | | | 401 / 403 / 500 / 503 / 504 |
-
+| Http Status Code | ○ | | | 401 / 403 / 404 / 500 |
 
 ### JSON Body (Error Case)
 
@@ -283,13 +234,10 @@ GET https://`domain`/campaign/list
 
 | Code | HTTP Status | Description | Type | Error Message |
 |------|-------------|-------------|------|---------------|
-| 1 | 401 | Missing or invalid Bearer token; user not authenticated | Unauthorized | Authentication is required. |
-| 2 | 403 | Forbidden: account linkage not completed, or user not allowed to access campaign list | Forbidden | Please complete account linkage first. |
-| 3 | 500 | Internal server error (e.g. DB connection error) | Internal Server Error | A system error has occurred. |
-| 4 | 503 | Service temporarily unavailable | Service Unavailable | The service is temporarily unavailable. |
-| 5 | 504 | Gateway or upstream timeout | Gateway Timeout | Request timed out. |
-
-**Success with no campaigns:** The API returns **200 OK** with `result: 0` and `campaigns: []` when the user is allowed but there are no eligible campaigns (e.g. already applied to all). This is not an error response.
+| 3 | 401 | Missing or invalid JWT | Unauthorized | 認証が必要です。 |
+| 4 | 403 | User does not have write access to this resource | Forbidden | このリソースへの書き込み権限がありません。 |
+| 3 | 404 | The file does not exist or does not belong to the given tmp_app_id | Not Found | ファイルが見つかりません。 |
+| 2 | 500 | Internal server error | Internal Server Error | システムエラーが発生しました。 |
 
 ---
 
@@ -297,130 +245,123 @@ GET https://`domain`/campaign/list
 
 ```mermaid
 flowchart TB
-  title["API GET /campaign/list Request Flow"]:::title
-  A["Request: GET /campaign/list + Bearer"]
+  title["API DELETE /temp-applications/{tmp_app_id}/assets/{document_id} Request Flow"]:::title
+  A["Request: DELETE /temp-applications/{tmp_app_id}/assets/{document_id} + Bearer"]
   B["Token valid?"]
-  C["Account linkage completed? (account_linkage)"]
-  D["Load master campaigns"]
-  E["For each campaign: check applications and status, show or hide"]
-  F["DB / system OK?"]
-  G["200 OK - campaign list or empty list"]
-
+  C["File exists and belongs to tmp_app_id?"]
+  D["User has write access to tmp_app_id?"]
+  E["Delete GCS object"]
+  F["Delete DB record"]
+  G["204 No Content"]
+  
   subgraph errors["Error Responses"]
-    H["401 Unauthorized"]
-    I["403 Forbidden - no linkage"]
-    J["500 Internal error"]
+    H["401 Unauthorized - Invalid token"]
+    I["403 Forbidden - No write access"]
+    J["404 Not Found - File not found"]
+    K["500 Internal error"]
   end
-
+  
   title -.-> A
   A --> B
   B -- No --> H
   B -- Yes --> C
-  C -- No --> I
+  C -- No --> J
   C -- Yes --> D
-  D --> E
-  E --> F
-  F -- No --> J
-  F -- Yes --> G
-
+  D -- No --> I
+  D -- Yes --> E
+  E -- Error --> K
+  E -- Success --> F
+  F -- Error --> K
+  F -- Success --> G
+  
   classDef title fill:#FAF3DD,stroke:#eee,stroke-width:0px,font-size:18px;
   classDef main fill:#6EC1E4,stroke:#3884A3,stroke-width:2px,color:#fff;
   classDef process fill:#E9F7FA,stroke:#6EC1E4,stroke-width:1.5px;
   classDef decision fill:#FFF4BD,stroke:#E6AA58,stroke-width:2px;
   classDef error fill:#FFDDD7,stroke:#D9534F,stroke-width:2px,color:#B23527;
   classDef success fill:#E8FDDD,stroke:#2A8337,stroke-width:2px,color:#226624;
-  classDef neutr fill:#F0EFEF,stroke:#96722D,stroke-width:1.5px,color:#96722D;
   class title title;
   class A main;
-  class B,C,F decision;
-  class D,E process;
+  class B,C,D decision;
+  class E,F process;
   class G success;
-  class H,I,J error;
+  class H,I,J,K error;
 ```
 
 ---
 
 ## Data access: CRUD and sample SQL
 
-**Note:** Master data (`master_campaign`) must be pre-configured in the DB before calling this endpoint.
+**Note:** The `documents` table must exist in the DB before calling this endpoint.
 
 ```mermaid
 flowchart LR
   subgraph Tables
-    A[account_linkage]
-    B[master_campaign]
-    C[applications]
+    A[documents]
+  end
+  subgraph External
+    B[Google Cloud Storage]
   end
   subgraph API
-    D[GET /campaign/list]
+    C[DELETE /temp-applications/{tmp_app_id}/assets/{document_id}]
   end
-  D --> A
-  D --> B
-  D --> C
+  C --> A
+  C --> B
 ```
 
 ### Tables used
 
 | Table | CRUD | Purpose |
 |-------|------|---------|
-| **account_linkage** | R | Verify user (easy_id) has completed account linkage. If no row → 403 (result 2). |
-| **master_campaign** | R | Campaign definitions (title, eligibility, point amount, required documents). |
-| **applications** | R | Check per user/customer: campaign_id, application_status to show or hide campaign. |
+| **documents** | R, D | Read document metadata to get GCS path (document_path), then delete the record. |
 
 ### Sample SQL
 
-**Validate linkage** (403 if user has no linkage for this customer)
+**Get document metadata and verify ownership** (404 if document not found)
 
 ```sql
-SELECT 1
-FROM account_linkage
-WHERE easy_id = :easy_id
-  AND customer_number = :customer_number;
--- If no row → return 403 (result 2). Else proceed to load campaigns.
+SELECT 
+    d.document_id,
+    d.temp_application_id,
+    d.document_path,
+    d.original_document_name
+FROM documents d
+WHERE d.document_id = :document_id
+  AND d.temp_application_id = :tmp_app_id;
+-- If no row → return 404 (result 3). Else proceed to delete.
 ```
 
-**Fetch campaigns to show** (for the authenticated user’s linked customer number(s); logic may resolve customer from easy_id)
+**Verify user has write access** (403 if user has no write access)
 
 ```sql
-SELECT
-    mc.id AS campaign_id,
-    mc.title,
-    mc.brief_eligibility,
-    mc.point_amount,
-    mc.required_documents
-FROM master_campaign mc
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM applications a
-    WHERE a.customer_number = :customer_number
-      AND a.campaign_id = mc.id
-      AND a.application_status IN (
-          'Under review', 'Final approved', 'Grant Done'
-      )
-)
-ORDER BY mc.id;
+-- Note: Adjust based on your temp_applications table structure
+SELECT temp_application_id, easy_id
+FROM temp_applications
+WHERE temp_application_id = :tmp_app_id
+  AND easy_id = :easy_id;
+-- If no row → return 403 (result 4). Else proceed.
 ```
 
-**Master data: insert**
+**Delete document record**
 
 ```sql
-INSERT INTO master_campaign (
-    title,
-    brief_eligibility,
-    point_amount,
-    required_documents
-) VALUES
-(
-    '新規ご契約特典',
-    '・2026年10月1日以降に住宅ローンの融資が実行されていること\n・同一債権に対するポイント申請1回限りとします',
-    5000,
-    '融資実行確認書類'
-),
-(
-    'ご子息誕生お祝い特典',
-    '・2026年10月1日以降に住宅ローンの融資が実行されていること\n・同一債権に対するポイント申請1回限りとします',
-    30000,
-    '融資実行確認書類'
-);
+DELETE FROM documents
+WHERE document_id = :document_id
+  AND temp_application_id = :tmp_app_id;
 ```
+
+**GCS Object Deletion**
+
+The GCS object is deleted using the stored `document_path`:
+- Path: From `documents.document_path` column
+- Method: Delete object from bucket
+- If object doesn't exist in GCS, still proceed with DB deletion (idempotent)
+
+**Transaction Safety**
+
+Consider using a transaction to ensure both operations succeed or fail together:
+1. Delete GCS object
+2. Delete DB record
+
+If GCS deletion fails, rollback the transaction. If DB deletion fails, attempt to restore the GCS object if possible, or log the inconsistency.
 
