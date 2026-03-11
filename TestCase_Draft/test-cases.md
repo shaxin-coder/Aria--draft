@@ -85,7 +85,7 @@ TC-UI-[ModuleName]-[TYPE]-[NUMBER]
 
 
 
-| Module / API Name / Batch Name  | Scenario        | Verification Points          | Test Description                                             | Case ID        | Priority    | Case Count |
+| Module / API Name / Batch Name  | Category        | Verification Points          | Test Description                                             | Case ID        | Priority    | Case Count |
 | ------------------ | --------------- | ---------------------------- | ------------------------------------------------------------ | -------------- | ----------- | ---------- |
 | GET /campaign/list | HappyPath       | Success Response Structure   | Retrieve campaigns with valid token and completed linkage    | HP01           | High        | 3          |
 | GET /campaign/list | HappyPath       | Empty Result Handling        | Return empty campaigns array when all eligible campaigns applied | HP02           | Medium      |            |
@@ -117,7 +117,7 @@ TC-UI-[ModuleName]-[TYPE]-[NUMBER]
 ### HappyPath (3 cases)
 
 | Case ID | Case Name | Priority | Precondition | Steps | Expected Result | Log Check(For batch) ｜ Case Status | Note | 
-|---------|-----------|----------|--------------|-------|-----------------|-------------|------|
+|---------|-----------|----------|--------------|-------|-----------------|----------------------|--------------|------｜
 | HP01 | Retrieve campaigns successfully | High | 1. User has completed account linkage<br>2. User has not applied to all campaigns<br>3. DB has 2+ campaigns | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept and Content-Type headers | 1. HTTP 200<br>2. result=0<br>3. campaigns array with all required fields | Not Run | - |
 | HP02 | Retrieve empty campaign list | Medium | 1. User has completed account linkage<br>2. User has applied to all campaigns (status: Under review, Final approved, Grant Done) | 1. Send GET /campaign/list with valid token and headers | 1. HTTP 200<br>2. result=0<br>3. campaigns=[] | Not Run | - |
 | HP03 | Retrieve campaigns with multiple required_documents | Medium | 1. User has completed account linkage<br>2. Campaigns have multiple required_documents | 1. Send GET /campaign/list with valid token | 1. HTTP 200<br>2. result=0<br>3. Each campaign's required_documents contains multiple objects | Not Run | - |
