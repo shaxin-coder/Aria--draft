@@ -59,39 +59,39 @@
 
 ### Case ID：
 
-                1. HappyPath--->HP
-                2. RequiredCheck--->REQ
-                3. LengthCheck--->LEN
-                4. ValidationCheck--->VAL
-                5. LogicCheck--->LOG
-                6. ErrorCheck--->ERR
+  1. HappyPath--->HP
+  2. RequiredCheck--->REQ
+  3. LengthCheck--->LEN
+  4. ValidationCheck--->VAL
+  5. LogicCheck--->LOG
+  6. ErrorCheck--->ERR
 
 - **API**：
   TC-API-[APINAME]-[TYPE]-[NUMBER]
-               1. TC-API-CAMPAIGN-LIST-HP-001
-               2. TC-API-CAMPAIGN-LIST-REQ-001
-               3. TC-API-CAMPAIGN-LIST-LEN-001
-               4. TC-API-CAMPAIGN-LIST-VAL-001
-               5. TC-API-CAMPAIGN-LIST-LOG-001
-               6. TC-API-CAMPAIGN-LIST-ERR-001
+1. TC-API-CAMPAIGN-LIST-HP-001
+2. TC-API-CAMPAIGN-LIST-REQ-001
+3. TC-API-CAMPAIGN-LIST-LEN-001
+4. TC-API-CAMPAIGN-LIST-VAL-001
+5. TC-API-CAMPAIGN-LIST-LOG-001
+6. TC-API-CAMPAIGN-LIST-ERR-001
 
 - **Batch**：
   TC-BATCH-[JOBNAME]-[TYPE]-[NUMBER]
-               1. TC-BATCH-POINT-GRANT-HP-001
-               2. TC-BATCH-POINT-GRANT-REQ-001
-               3. TC-BATCH-POINT-GRANT-LEN-001
-               4. TC-BATCH-POINT-GRANT-VAL-001
-               5. TC-BATCH-POINT-GRANT-LOG-001
-               6. TC-BATCH-POINT-GRANT-ERR-001
+1. TC-BATCH-POINT-GRANT-HP-001
+2. TC-BATCH-POINT-GRANT-REQ-001
+3. TC-BATCH-POINT-GRANT-LEN-001
+4. TC-BATCH-POINT-GRANT-VAL-001
+5. TC-BATCH-POINT-GRANT-LOG-001
+6. TC-BATCH-POINT-GRANT-ERR-001
 
 - **UI**:
   TC-UI-[ModuleName]-[TYPE]-[NUMBER]
-               1. TC-UI-IdLinkage-HP-001
-               2. TC-UI-IdLinkage-REQ-001
-               3. TC-UI-IdLinkage-LEN-001
-               4. TC-UI-IdLinkage-VAL-001
-               5. TC-UI-IdLinkage-LOG-001
-               6. TC-UI-IdLinkage-ERR-001
+1. TC-UI-IdLinkage-HP-001
+2. TC-UI-IdLinkage-REQ-001
+3. TC-UI-IdLinkage-LEN-001
+4. TC-UI-IdLinkage-VAL-001
+5. TC-UI-IdLinkage-LOG-001
+6. TC-UI-IdLinkage-ERR-001
 
 ### Case status：
 
