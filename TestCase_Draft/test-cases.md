@@ -1,3 +1,60 @@
+# Retrieve Campaign List API – Test Cases
+
+| Spec           | `Campaign_List_API_Interface.md` |
+|----------------|----------------------------------|
+| Endpoint       | GET `/campaign/list`            |
+| Authentication | Bearer token                    |
+| Note           | No DB update.                  |
+
+---
+
+## API overview
+
+**API name:** Retrieve Campaign List API  
+**Description:** Return the list of campaigns available to the authenticated user.
+
+---
+
+## Sample success response
+
+```json
+{
+  "result": 0,
+  "campaigns": [
+    {
+      "id": 1,
+      "title": "新規ご契約特典",
+      "brief_eligibility": [
+        "2026年10月1日以降に住宅ローンの融資が実行されていること",
+        "同一債権に対するポイント申請1回限りとします",
+        "融資実行日から〇ヶ月以内に申請すること"
+      ],
+      "point_amount": 5000,
+      "required_documents": [
+        { "id": "doc_1", "title": "融資実行確認書類" }
+      ],
+      "point_grant_date": "2025-12-31"
+    },
+    {
+      "id": 2,
+      "title": "ご子息誕生お祝い特典",
+      "brief_eligibility": [
+        "2026年10月1日以降に住宅ローンの融資が実行されていること",
+        "同一債権に対するポイント申請1回限りとします",
+        "融資実行日から〇ヶ月以内に申請すること"
+      ],
+      "point_amount": 30000,
+      "required_documents": [
+        { "id": "doc_1", "title": "融資実行確認書類" }
+      ],
+      "point_grant_date": "2025-01-31"
+    }
+  ]
+}
+```
+
+---
+
 ## Project defination
 
 ### Case ID：
