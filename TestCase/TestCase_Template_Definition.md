@@ -1,6 +1,6 @@
 ## Project defination
 
-### Case ID：
+### Test Case ID：
 
   1. HappyPath--->HP
   2. RequiredCheck--->REQ

@@ -6,7 +6,7 @@ You are a senior QA engineer with expertise in API testing. Based on the API Spe
 
 Output requirements:
 1. List test cases for each interface separately.
-2. Each test case includes: Case ID, Category, Priority, Case Description, Given, When, Then, Case Status, Note
+2. Each test case includes:Test Case ID, Priority, Category, Test Case Description, Given, When, Then, Case Status, Note
 3. Output in a clear Markdown list format.
 4. Present the test cases in table format.
 5. Classify the cases into: HappyPath, LengthCheck, LogicCheck, RequiredCheck, ErrorCheck, ValidationCheck.

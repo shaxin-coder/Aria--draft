@@ -57,7 +57,7 @@
 
 ## Test Case Summary Matrix
 
-| Case ID                      | Category        | Priority | Case Description                                             | Note |
+| Test Case ID                      | Category        | Priority | Test Case Description                                             | Note |
 | ---------------------------- | --------------- | -------- | ------------------------------------------------------------ | ---- |
 | TC-API-CAMPAIGN-LIST-HP-001  | HappyPath       | L1       | Retrieve campaigns successfully with valid token and linkage |      |
 | TC-API-CAMPAIGN-LIST-HP-002  | HappyPath       | L2       | Retrieve empty campaign list when all campaigns applied      |      |
@@ -104,9 +104,9 @@
 
 ---
 
-## Test Cases by Classification
+## Test Cases Steps
 
-| Case ID                       | Category        | Priority | Case Description                                             | Given                                                                                                                            | When                                                                                                          | Then                                                                                          | Case Status | Note |
+| Test Case ID                       | Category        | Priority | Test Case Description                                             | Given                                                                                                                            | When                                                                                                          | Then                                                                                          | Case Status | Note |
 | ----------------------------- | --------------- | -------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------- | ---- |
 | TC-API-CAMPAIGN-LIST-HP-001   | HappyPath       | L1       | Retrieve campaigns successfully with valid token and linkage | 1. User has completed account linkage<br>2. User has not applied to all campaigns<br>3. DB has 2+ campaigns                      | 1. Send GET /campaign/list<br>2. Include valid Bearer token<br>3. Include Accept and Content-Type headers       | 1. HTTP 200<br>2. result=0<br>3. campaigns array with all required fields                     | Not Run     |      |
 | TC-API-CAMPAIGN-LIST-HP-002   | HappyPath       | L2       | Retrieve empty campaign list when all campaigns applied      | 1. User has completed account linkage<br>2. User has applied to all campaigns (status: Under review, Final approved, Grant Done) | 1. Send GET /campaign/list with valid token and headers                                                       | 1. HTTP 200<br>2. result=0<br>3. campaigns=[]                                                  | Not Run     |      |
