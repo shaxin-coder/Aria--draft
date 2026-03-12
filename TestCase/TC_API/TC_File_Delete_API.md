@@ -23,7 +23,7 @@
 
 ## Test Case Summary Matrix
 
-| Case ID                        | Category        | Priority | Test Description                                              | Note |
+| Case ID                        | Category        | Priority | Case Description                                              | Note |
 | ------------------------------ | --------------- | -------- | ------------------------------------------------------------- | ---- |
 | TC-API-FILE-DELETE-HP-001      | HappyPath       | L1       | Delete file successfully with valid token and write access    |      |
 | TC-API-FILE-DELETE-HP-002      | HappyPath       | L2       | Verify 204 No Content and empty response body                 |      |
@@ -60,7 +60,7 @@
 
 ## Test Cases by Classification
 
-| Case ID                         | Category        | Priority | Test Description                                              | Given                                                                                                                             | When                                                                                                                       | Then                                                                                                                       | Case Status | Note |
+| Case ID                         | Category        | Priority | Case Description                                              | Given                                                                                                                             | When                                                                                                                       | Then                                                                                                                       | Case Status | Note |
 | ------------------------------- | --------------- | -------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------- | ---- |
 | TC-API-FILE-DELETE-HP-001       | HappyPath       | L1       | Delete file successfully with valid token and write access    | 1. User has valid token<br>2. User has write access to tmp_app_id<br>3. Document exists in documents table and GCS                   | 1. Send DELETE /temp-applications/{tmp_app_id}/assets/{document_id}<br>2. Include valid Bearer token<br>3. Include Accept header | 1. HTTP 204<br>2. No response body<br>3. Document record deleted from DB<br>4. GCS object deleted                           | Not Run     |      |
 | TC-API-FILE-DELETE-HP-002       | HappyPath       | L2       | Verify 204 No Content and empty response body                 | 1. Same as HP-001                                                                                                                  | 1. Send DELETE request with valid credentials                                                                              | 1. HTTP 204 No Content<br>2. Response body is empty or null                                                                 | Not Run     |      |

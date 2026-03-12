@@ -35,7 +35,7 @@
 
 ## Test Case Summary Matrix
 
-| Case ID                         | Category        | Priority | Test Description                                             | Note |
+| Case ID                         | Category        | Priority | Case Description                                             | Note |
 | ------------------------------- | --------------- | -------- | ------------------------------------------------------------ | ---- |
 | TC-API-FILE-DETAILS-HP-001      | HappyPath       | L1       | Retrieve file details successfully with valid token and access |      |
 | TC-API-FILE-DETAILS-HP-002     | HappyPath       | L1       | Retrieve file details without download URL (download=false)  |      |
@@ -86,7 +86,7 @@
 
 ## Test Cases by Classification
 
-| Case ID                          | Category        | Priority | Test Description                                             | Given                                                                                                                            | When                                                                                                          | Then                                                                                          | Case Status | Note |
+| Case ID                          | Category        | Priority | Case Description                                             | Given                                                                                                                            | When                                                                                                          | Then                                                                                          | Case Status | Note |
 | -------------------------------- | --------------- | -------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------- | ---- |
 | TC-API-FILE-DETAILS-HP-001       | HappyPath       | L1       | Retrieve file details successfully with valid token and access | 1. User has read access to tmp_app_id<br>2. Document exists and belongs to tmp_app_id<br>3. File status=completed               | 1. Send GET /temp-applications/{tmp_app_id}/assets/{document_id}<br>2. Include valid Bearer token<br>3. Include Accept header | 1. HTTP 200<br>2. result=0<br>3. All required fields present (document_id, filename, mime_type, size, pages, created_at, updated_at) | Not Run     |      |
 | TC-API-FILE-DETAILS-HP-002       | HappyPath       | L1       | Retrieve file details without download URL (download=false)  | 1. User has read access<br>2. Document exists with status=completed                                                              | 1. Send GET with download=false<br>2. Valid Bearer token and headers                                          | 1. HTTP 200<br>2. result=0<br>3. download_url NOT in response                                 | Not Run     |      |
