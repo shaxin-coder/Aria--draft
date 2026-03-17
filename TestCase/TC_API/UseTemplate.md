@@ -16,4 +16,4 @@ The following is the content of the Case definition:
 [[TestCase/TestCase_Template_Definition.md]] 
 
 The following is the content of the API Spec:
-[[Spec/API/File_Details_API_Interface.md]] 
+[[Spec/API/File_Delete_API_Interface.md]] 
