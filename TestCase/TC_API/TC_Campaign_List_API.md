@@ -57,48 +57,3746 @@
 
 ## Test Case Summary Matrix
 
-| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                        | Note |
-| ---------------------------- | -------- | --------------- | ------------------------------------------------------------ | ---- |
-| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with valid token and linkage |      |
-| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when all campaigns applied      |      |
-| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with multiple required documents          |      |
-| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                      |      |
-| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                             |      |
-| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                       |      |
-| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                     |      |
-| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without prefix                                  |      |
-| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                            |      |
-| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                         |      |
-| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                           |      |
-| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with many conditions                       |      |
-| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with many items                           |      |
-| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                      |      |
-| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                      |      |
-| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                         |      |
-| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                       |      |
-| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                    |      |
-| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                       |      |
-| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                           |      |
-| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                |      |
-| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer 0 on success                         |      |
-| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists               |      |
-| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                  |      |
-| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if grant done application                    |      |
-| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                       |      |
-| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                      |      |
-| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                         |      |
-| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number isolation                           |      |
-| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID ascending                            |      |
-| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                              |      |
-| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                          |      |
-| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                              |      |
-| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                        |      |
-| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                            |      |
-| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                               |      |
-| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                  |      |
-| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                |      |
-| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaigns field on success                  |      |
-| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                          |      |
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |----------------------------- | ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ssfully with valid token and ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |list when all campaigns ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |multiple required ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ader ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |der ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ero ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |aximum ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |mum ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |any ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |many ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |y: minimum ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |y: maximum ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |l ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ial ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |pecial ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ial ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |0 on ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ved application ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      | review ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      | done ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ed ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |awn ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |er ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      | ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |r ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |leted ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |r ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ailable ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |out ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |ns field on ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
+## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      | ## Test Case Summary Matrix
+
+| No.  | Test Case ID                 | Priority | Category        | Test Case Description                                                                 | Note |
+|------|------------------------------|----------|-----------------|---------------------------------------------------------------------------------------|------|
+| 1    | TC-API-CAMPAIGN-LIST-HP-001  | L1       | HappyPath       | Retrieve campaigns successfully with account linkage                                   |      |
+| 2    | TC-API-CAMPAIGN-LIST-HP-002  | L2       | HappyPath       | Retrieve empty campaign list when no campaign applied                                  |      |
+| 3    | TC-API-CAMPAIGN-LIST-HP-003  | L2       | HappyPath       | Retrieve campaigns with required documents                                              |      |
+| 4    | TC-API-CAMPAIGN-LIST-REQ-001 | L1       | RequiredCheck   | Missing Authorization header validation                                                |      |
+| 5    | TC-API-CAMPAIGN-LIST-REQ-002 | L2       | RequiredCheck   | Missing Accept header validation                                                       |      |
+| 6    | TC-API-CAMPAIGN-LIST-REQ-003 | L2       | RequiredCheck   | Missing Content-Type header validation                                                 |      |
+| 7    | TC-API-CAMPAIGN-LIST-REQ-004 | L1       | RequiredCheck   | Empty Bearer token value                                                               |      |
+| 8    | TC-API-CAMPAIGN-LIST-REQ-005 | L1       | RequiredCheck   | Bearer token without "Bearer" prefix                                                   |      |
+| 9    | TC-API-CAMPAIGN-LIST-LEN-001 | L2       | LengthCheck     | Point amount boundary: zero value                                                      |      |
+| 10   | TC-API-CAMPAIGN-LIST-LEN-002 | L2       | LengthCheck     | Point amount boundary: maximum value                                                   |      |
+| 11   | TC-API-CAMPAIGN-LIST-LEN-003 | L2       | LengthCheck     | Campaign title with maximum length                                                     |      |
+| 12   | TC-API-CAMPAIGN-LIST-LEN-004 | L3       | LengthCheck     | Brief eligibility with maximum conditions                                              |      |
+| 13   | TC-API-CAMPAIGN-LIST-LEN-005 | L3       | LengthCheck     | Required documents with maximum items                                                  |      |
+| 14   | TC-API-CAMPAIGN-LIST-LEN-006 | L3       | LengthCheck     | Point grant date boundary: minimum date                                                |      |
+| 15   | TC-API-CAMPAIGN-LIST-LEN-007 | L4       | LengthCheck     | Point grant date boundary: maximum date                                                |      |
+| 16   | TC-API-CAMPAIGN-LIST-VAL-001 | L2       | ValidationCheck | Bearer token with special characters                                                   |      |
+| 17   | TC-API-CAMPAIGN-LIST-VAL-002 | L3       | ValidationCheck | Campaign title with special characters                                                 |      |
+| 18   | TC-API-CAMPAIGN-LIST-VAL-003 | L3       | ValidationCheck | Brief eligibility with special characters                                              |      |
+| 19   | TC-API-CAMPAIGN-LIST-VAL-004 | L3       | ValidationCheck | Document title with special characters                                                 |      |
+| 20   | TC-API-CAMPAIGN-LIST-VAL-005 | L1       | ValidationCheck | Point grant date format validation                                                     |      |
+| 21   | TC-API-CAMPAIGN-LIST-VAL-006 | L3       | ValidationCheck | Campaign ID format validation                                                         |      |
+| 22   | TC-API-CAMPAIGN-LIST-VAL-007 | L1       | ValidationCheck | Result field is integer when query succeeds                                            |      |
+| 23   | TC-API-CAMPAIGN-LIST-LOG-001 | L1       | LogicCheck      | Campaign hidden if approved application exists                                          |      |
+| 24   | TC-API-CAMPAIGN-LIST-LOG-002 | L1       | LogicCheck      | Campaign hidden if under review application                                            |      |
+| 25   | TC-API-CAMPAIGN-LIST-LOG-003 | L1       | LogicCheck      | Campaign hidden if granted application                                                |      |
+| 26   | TC-API-CAMPAIGN-LIST-LOG-004 | L2       | LogicCheck      | Campaign shown if rejected application                                                 |      |
+| 27   | TC-API-CAMPAIGN-LIST-LOG-005 | L2       | LogicCheck      | Campaign shown if withdrawn application                                                |      |
+| 28   | TC-API-CAMPAIGN-LIST-LOG-006 | L2       | LogicCheck      | New campaign appears after insertion                                                   |      |
+| 29   | TC-API-CAMPAIGN-LIST-LOG-007 | L1       | LogicCheck      | Multiple customer number data isolation                                                |      |
+| 30   | TC-API-CAMPAIGN-LIST-LOG-008 | L3       | LogicCheck      | Campaigns ordered by ID in ascending order                                              |      |
+| 31   | TC-API-CAMPAIGN-LIST-ERR-001 | L1       | ErrorCheck      | Invalid or expired Bearer token                                                        |      |
+| 32   | TC-API-CAMPAIGN-LIST-ERR-002 | L1       | ErrorCheck      | Account linkage not completed (403)                                                    |      |
+| 33   | TC-API-CAMPAIGN-LIST-ERR-003 | L1       | ErrorCheck      | Database connection error (500)                                                       |      |
+| 34   | TC-API-CAMPAIGN-LIST-ERR-004 | L2       | ErrorCheck      | Service temporarily unavailable (503)                                                  |      |
+| 35   | TC-API-CAMPAIGN-LIST-ERR-005 | L2       | ErrorCheck      | Gateway or upstream timeout (504)                                                      |      |
+| 36   | TC-API-CAMPAIGN-LIST-ERR-006 | L1       | ErrorCheck      | Malformed Authorization header                                                         |      |
+| 37   | TC-API-CAMPAIGN-LIST-ERR-007 | L1       | ErrorCheck      | Wrong authentication scheme                                                            |      |
+| 38   | TC-API-CAMPAIGN-LIST-ERR-008 | L1       | ErrorCheck      | Response missing result field                                                          |      |
+| 39   | TC-API-CAMPAIGN-LIST-ERR-009 | L1       | ErrorCheck      | Response missing campaign data when query succeeds                                     |      |
+| 40   | TC-API-CAMPAIGN-LIST-ERR-010 | L2       | ErrorCheck      | Error response structure validation                                                     |      |
 
 **Total Test Cases: 40**
 
