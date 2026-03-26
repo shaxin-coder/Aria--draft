@@ -1,5 +1,4 @@
 You are a senior QA engineer with expertise in API testing. Based on the API Spec in Markdown format below, design comprehensive test cases covering:
-
 - Normal scenarios (all required parameters are complete and comply with business rules)
 - Boundary scenarios (empty parameters, 0, maximum/minimum values, special characters)
 - Abnormal scenarios (missing parameters, wrong data type, authentication failure, insufficient permissions)
@@ -17,3 +16,4 @@ The following is the content of the Case definition:
 
 The following is the content of the API Spec:
 [[Spec/API/File_Delete_API_Interface.md]] 
+
